@@ -1,25 +1,48 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
-    <template id="report_invoice_willmantech">  
-        <t t-call="web.external_layout">
-            <t t-set="o" t-value="o.with_context(lang=lang)"/>
-                <div class="page">
+    <template id="report_invoice_willmantech">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        
+                        <h2>WillmanTech S.L.</h2>
+                        <h4>Factura: <span t-field="doc.name"/></h4>
+                        <p>Fecha: <span t-field="doc.date"/></p>
 
-                    <div class="col-6">
-                        <strong>Número de factura:</strong>
-                        <span t-field="doc.name"/>
+                        <t t-set="tiene_descuento" t-value="any(l.discount for l in doc.invoice_line_ids)"/>
+
+                        <table class="table table-sm mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Descripción</th>
+                                    <th class="text-end">Cantidad</th>
+                                    <th class="text-end">Precio</th>
+                                    <th t-if="tiene_descuento" class="text-end">Desc.%</th>
+                                    <th class="text-end">Importe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.invoice_line_ids" t-as="line">
+                                    <tr>
+                                        <td><span t-field="line.name"/></td>
+                                        <td class="text-end"><span t-field="line.quantity"/></td>
+                                        <td class="text-end"><span t-field="line.price_unit"/></td>
+                                        <td t-if="tiene_descuento" class="text-end"><span t-field="line.discount"/>%</td>
+                                        <td class="text-end"><span t-field="line.price_subtotal"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <div class="text-end mt-4">
+                            <strong>Total Neto: </strong>
+                            <span t-field="doc.amount_total"/>
+                        </div>
+
                     </div>
-
-                    <div class="col-6">
-                        <strong>Fecha de emisión:</strong>
-                        <span t-field="doc.invoice_date"/>
-                    </div>
-
-                </div>
+                </t>
             </t>
-            
+        </t>
     </template>
-    
 </odoo>
