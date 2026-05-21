@@ -10,3 +10,9 @@ Esa estructura va a estar con una sintaxix bien estruturada, haciendo uso de dir
 
 Para empezar, he usado la factura que ya habiamos creado previamente en Odoo y he utlizado su código para la realización de la Fase 1.
 He extraido las partes importantes y así he comenzado a generar el archivo xml.
+
+## FASE 2º: INTEROPERABILIDAD DE DATOSÇ
+
+Debido a que no hemos hecho JSON en clase, unicamente vamos a realizar el 
+"*invoice_ubl.xml*" aquí incluiremos componentes agregados y basicos como el ID de personalización 
+
